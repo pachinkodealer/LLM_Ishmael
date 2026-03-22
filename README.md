@@ -7,7 +7,9 @@
 
 ## Run it in your browser
 
-**[Open The Witness →](https://pachinkodealer.github.io/ishmael)**
+**[Open The Witness →](https://pachinkodealer.github.io/LLM_Ishmael)**
+
+![The Witness — web interface](screenshot.png)
 
 On desktop (Chrome/Edge): runs fully in-browser — no account or API key needed.
 On mobile or other browsers: enter a free [Anthropic API key](https://console.anthropic.com) when prompted.
