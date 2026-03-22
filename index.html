@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="An experimental interactive book exploring four global crises through Socratic dialogue with The Witness.">
+  <title>The Ishmael Project</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── Loading Screen (WebLLM) ─────────────────────────── -->
+<div class="overlay" id="loading-screen">
+  <p class="overlay-eyebrow">The Ishmael Project</p>
+  <h1>The Witness is awakening</h1>
+  <p class="overlay-subtitle">The model is loading into your browser.<br>This happens once — it will be ready instantly on your next visit.</p>
+  <div id="progress-wrap">
+    <div id="progress-bar-track">
+      <div id="progress-bar-fill"></div>
+    </div>
+    <p id="progress-text">Preparing...</p>
+  </div>
+  <p id="loading-note">
+    This model runs entirely in your browser. Nothing you write is sent to any server.
+    It requires a one-time download of approximately 4 GB.
+  </p>
+</div>
+
+<!-- ── API Key Screen (Fallback) ───────────────────────── -->
+<div class="overlay hidden" id="apikey-screen">
+  <h1>Before The Witness can speak</h1>
+  <p class="overlay-subtitle">
+    Your browser does not support in-browser AI (WebGPU).<br>
+    Enter an Anthropic API key to continue. It is stored only in this browser<br>
+    and sent directly to Anthropic — this site never sees it.
+  </p>
+  <div id="apikey-form">
+    <div id="apikey-input-wrap">
+      <input id="apikey-input" type="password" placeholder="sk-ant-..." autocomplete="off" spellcheck="false">
+      <button id="btn-show-key" type="button">show</button>
+    </div>
+    <p id="apikey-error"></p>
+    <button id="btn-enter-dialogue" type="button">Enter the dialogue</button>
+  </div>
+  <p id="apikey-security-note">
+    Your key is never logged, displayed, or included in exports.
+    Set a <a href="https://console.anthropic.com" target="_blank" rel="noopener">spending limit</a>
+    in the Anthropic console to control costs.
+    A typical session costs $0.01–0.05.
+  </p>
+</div>
+
+<!-- ── Main App ─────────────────────────────────────────── -->
+<div id="app">
+
+  <!-- Sidebar backdrop (mobile) -->
+  <div id="sidebar-backdrop"></div>
+
+  <!-- Sidebar -->
+  <aside id="sidebar">
+    <div id="sidebar-header">
+      <span id="sidebar-title">Sessions</span>
+      <button id="btn-new-session">+ New session</button>
+    </div>
+
+    <div id="arc-filter">
+      <button class="arc-filter-chip active" data-arc="all">all</button>
+      <button class="arc-filter-chip" data-arc="economy">economy</button>
+      <button class="arc-filter-chip" data-arc="climate">climate</button>
+      <button class="arc-filter-chip" data-arc="ai">ai</button>
+      <button class="arc-filter-chip" data-arc="pattern">pattern</button>
+    </div>
+
+    <div id="session-list"></div>
+
+    <div id="sidebar-footer">
+      <button class="sidebar-action" id="btn-export-book">Export full book (.md)</button>
+      <button class="sidebar-action" id="btn-backup">Backup sessions (.json)</button>
+      <button class="sidebar-action" id="btn-restore-trigger">Restore from backup</button>
+      <input id="btn-restore" type="file" accept=".json" class="hidden">
+      <button class="sidebar-action danger" id="btn-forget-key">Forget API key</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div id="main">
+
+    <!-- Top bar -->
+    <div id="topbar">
+      <button id="btn-menu" aria-label="Open sessions">☰</button>
+
+      <div id="arc-selector">
+        <button class="arc-chip" data-arc="economy">economy</button>
+        <button class="arc-chip" data-arc="climate">climate</button>
+        <button class="arc-chip" data-arc="ai">ai</button>
+        <button class="arc-chip" data-arc="pattern">pattern</button>
+        <button class="arc-chip selected" data-arc="untagged">untagged</button>
+      </div>
+
+      <div id="topbar-spacer"></div>
+      <button id="btn-export-session">Export session</button>
+    </div>
+
+    <!-- Dialogue -->
+    <div id="dialogue">
+      <div id="empty-state" class="visible">
+        <h2>The Witness is waiting.</h2>
+        <p>Begin a new session, or select one from the left.<br>Enter to send. Shift+Enter for a new line.</p>
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div id="input-area">
+      <div id="input-row">
+        <textarea
+          id="user-input"
+          placeholder="Speak to The Witness..."
+          rows="1"
+          aria-label="Your message"
+        ></textarea>
+        <button id="btn-send">Send</button>
+      </div>
+      <p id="input-hint">Enter to send &nbsp;·&nbsp; Shift+Enter for new line</p>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
